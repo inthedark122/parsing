@@ -1,0 +1,30 @@
+%html
+  %head
+    %meta{:'http-equiv' => 'Content-Type', :content => 'text/html; charset=utf-8'}
+  %body
+    %table{:border=>'1px solid black'}
+      %thead
+        %tr
+          %td id
+          %td Название
+          %td Тип
+          %td Страна
+          %td Город
+          %td Сайт
+          %td IOS
+          %td Android
+          %td Windows
+          %td Обновлена
+      %tbody
+        - @posts.each do |post|
+          %tr
+            %td= post.id
+            %td= post.name
+            %td= post.type_company
+            %td= post.country
+            %td= post.city
+            %td= post.site
+            %td= post.ios
+            %td= post.android
+            %td= post.windows
+            %td= post.updated_at

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/home/inthedark/ruby/work/parsing/app/views/apps4all/index.haml</file>
+            <file>file:/home/inthedark/ruby/work/parsing/db/migrate/20140724192212_create_apps4alls.rb</file>
+            <file>file:/home/inthedark/ruby/work/parsing/app/models/apps4all.rb</file>
+            <file>file:/home/inthedark/ruby/work/parsing/lib/tasks/parse.rake</file>
+            <file>file:/home/inthedark/ruby/work/parsing/config/database.yml</file>
+            <file>file:/home/inthedark/ruby/work/parsing/Gemfile</file>
+            <file>file:/home/inthedark/ruby/work/parsing/app/controllers/apps4all_controller.rb</file>
+        </group>
+    </open-files>
+</project-private>
