@@ -6,7 +6,15 @@ class Apps4all < ActiveRecord::Base
   def load_site(start_page = 0, end_page = 99999)
     (start_page .. end_page).each do |page|
       uri = URI("http://apps4all.ru/developers/rating?page=#{page}")
-      res = Net::HTTP.get_response(uri)
+      while true
+        begin
+          res = Net::HTTP.get_response(uri)
+          break
+        rescue
+          puts "Не могу загрузить сайт"
+          sleep 10
+        end
+      end
       doc = Nokogiri::HTML::Document.parse(res.body)
       trs = doc.css('tr')
       break if trs.empty?
@@ -15,13 +23,22 @@ class Apps4all < ActiveRecord::Base
         cmp = parse_page(tr)
         puts cmp if @log
       end
+      puts "Закончил #{page} страницу"
     end
   end
   
   def parse_page(tr)
     cmp = {:ios => 0, :android => 0, :windows => 0}
     uri_cmp = URI('http://apps4all.ru' + tr.css('a')[0]['href'])
-    res_cmp = Net::HTTP.get_response(uri_cmp)
+    while true
+      begin
+        res_cmp = Net::HTTP.get_response(uri_cmp)
+        break
+      rescue
+        puts "Не могу загрузить сайт"
+        sleep 10
+      end
+    end
     doc_cmp = Nokogiri::HTML::Document.parse(res_cmp.body)
     header = doc_cmp.css("div[class='header']")
 

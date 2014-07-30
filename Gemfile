@@ -14,6 +14,10 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0',          group: :doc
 
+# Дополнительные настройки для работы с JS
+gem 'execjs'
+gem 'therubyracer'
+
 group :development do
   gem 'spring'
   gem 'better_errors'
