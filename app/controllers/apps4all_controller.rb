@@ -12,7 +12,7 @@ class Apps4allController < ApplicationController
   
   def add_cmp(start_count, end_count, name, log)
     apps4all = Apps4all.new
-    apps4all.load_site(start_count, end_count)
+    apps4all.load_site(start_count, end_count, log)
   end
 
 end
