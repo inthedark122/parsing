@@ -19,7 +19,7 @@ gem 'execjs'
 gem 'therubyracer'
 
 group :development do
-  gem 'spring'
+  #gem 'spring'
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'meta_request'

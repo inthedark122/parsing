@@ -1,8 +1,10 @@
 Rails.application.routes.draw do
   
   
-  root  'apps4all#index'
+  root  'application#index'
   get 'apps4all/add_cmp' => 'apps4all#add_cmp'
+  get 'apps4all/show' => 'apps4all#show'
+  get 'apps4all/apps4all' => 'apps4all#show'
   #get 'apps4all/add_cmp.xls' => 'apps4all#add_cmp'
   
   # The priority is based upon order of creation: first created -> highest priority.

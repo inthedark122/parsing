@@ -8,23 +8,22 @@
           %td id
           %td Название
           %td Тип
-          %td Страна
-          %td Город
-          %td Сайт
           %td IOS
           %td Android
           %td Windows
-          %td Обновлена
+          %td Страна
+          %td Город
+          %td Сайт
+
       %tbody
         - @posts.each do |post|
           %tr
             %td= post.id
             %td= post.name
             %td= post.type_company
-            %td= post.country
-            %td= post.city
-            %td= post.site
             %td= post.ios
             %td= post.android
             %td= post.windows
-            %td= post.updated_at
+            %td= post.country
+            %td= post.city
+            %td= post.site

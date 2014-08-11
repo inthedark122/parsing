@@ -1,11 +1,11 @@
 # encoding: utf-8
 class Apps4allController < ApplicationController
   
-  def index
+  def show
     @posts = Apps4all.all
     respond_to do |format|
-      format.html { render 'apps4all/index' }
-      format.xls { render 'apps4all/index' }
+      format.html { render 'apps4all/show' }
+      format.xls { render 'apps4all/show' }
     end
   end
   
