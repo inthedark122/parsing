@@ -1,7 +1,8 @@
 class SchoolsController < ApplicationController
   
   def show_language_courses
-    @schools = School.all.where(:type_school=>1)
+    @type = 1
+    @schools = School.all.where(:type_school=>@type)
     respond_to do |format|
       format.html { render 'schools/show' }
       format.xls { render 'schools/show' }
@@ -9,7 +10,8 @@ class SchoolsController < ApplicationController
   end
   
   def show_universities
-    @schools = School.all.where(:type_school=>2)
+    @type = 2
+    @schools = School.all.where(:type_school=>@type)
     respond_to do |format|
       format.html { render 'schools/show' }
       format.xls { render 'schools/show' }
@@ -17,7 +19,8 @@ class SchoolsController < ApplicationController
   end
   
   def show_private_schools
-    @schools = School.all.where(:type_school=>3)
+    @type = 3
+    @schools = School.all.where(:type_school=>@type)
     respond_to do |format|
       format.html { render 'schools/show' }
       format.xls { render 'schools/show' }
@@ -25,7 +28,8 @@ class SchoolsController < ApplicationController
   end
   
   def show_lyceums
-    @schools = School.all.where(:type_school=>4)
+    @type = 4
+    @schools = School.all.where(:type_school=>@type)
     respond_to do |format|
       format.html { render 'schools/show' }
       format.xls { render 'schools/show' }

@@ -1,4 +1,12 @@
-= link_to "Получить Excel", "/schools/private_schools.xls"
+- case @type
+  - when 1
+    = link_to "Получить Excel", "/schools/language_courses.xls"
+  - when 2
+    = link_to "Получить Excel", "/schools/universities.xls"
+  - when 3
+    = link_to "Получить Excel", "/schools/private_schools.xls"
+  - when 4
+    = link_to "Получить Excel", "/schools/lyceums.xls"
 - if @schools.blank?
   %p Записей не обнаружено
 - else
