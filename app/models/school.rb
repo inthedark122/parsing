@@ -16,12 +16,13 @@ class School < ActiveRecord::Base
   def universities_parse(params)
     main = 'http://vuz.edunetwork.ru'
     (params[:start_count] .. params[:end_count]).each do |i|
-      uri = URI("#{main}/#{i}/")
-      res = Net::HTTP.get_response(uri)
+      #http://vuz.edunetwork.ru/ajax.bin
+      uri = URI("#{main}/ajax.bin")
+      params_uri = {:act=> 'moreVuz', :page=>i, :url=>"#{main}/77/?page=#{i}&level=first"}
+      res = Net::HTTP.post_form(uri, params_uri)
       doc = Nokogiri::HTML::Document.parse(res.body)
-      vuzes = doc.css('#vuzes')
-      #puts vuzes
-      vuzes.css('.block').each do |block|
+      #vuzes = doc.css('#vuzes')
+      doc.css('.block').each do |block|
         values = {:type_school => 2, :name => block.css('a')[0].text, :page=>i}
         href = block.css('a')[0][:href]
         uri_block = URI("#{main}/#{href}")
