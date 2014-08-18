@@ -12,6 +12,7 @@
         %td Телефон
         %td Почта
         %td Обновлена
+        %td Страница
     %tbody
       - @schools.each do |school|
         %tr
@@ -22,3 +23,4 @@
           %td= school.phone
           %td= school.posta
           %td= school.updated_at
+          %td= school.page

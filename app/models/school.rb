@@ -22,7 +22,7 @@ class School < ActiveRecord::Base
       vuzes = doc.css('#vuzes')
       #puts vuzes
       vuzes.css('.block').each do |block|
-        values = {:type_school => 2, :name => block.css('a')[0].text}
+        values = {:type_school => 2, :name => block.css('a')[0].text, :page=>i}
         href = block.css('a')[0][:href]
         uri_block = URI("#{main}/#{href}")
         res_block = Net::HTTP.get_response(uri_block)
@@ -95,15 +95,15 @@ class School < ActiveRecord::Base
     if school.blank?
       school = School.new(values)
       if school.save
-        puts "#{values[:name]} - сохранена"
+        puts "сохранена - #{values[:name]}"
       else
-        puts "#{values[:name]} - не могу сохранить"
+        puts "не могу сохранить - #{values[:name]}"
       end
     else
       if school.update_attributes(values)
-        puts "#{values[:name]} - обновлена"
+        puts "обновлена - #{values[:name]}"
       else
-        puts "#{values[:name]} - не могу обновить"
+        puts "не могу обновить - #{values[:name]}"
       end
     end
   end

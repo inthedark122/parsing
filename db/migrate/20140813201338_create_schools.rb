@@ -11,6 +11,7 @@ class CreateSchools < ActiveRecord::Migration
       t.string :site
       t.string :phone 
       t.string :posta
+      t.integer :page
       
       t.timestamps
     end
