@@ -67,7 +67,12 @@ notes\:custom=Enumerate a custom annotation, specify with ANNOTATION=CUSTOM
 notes\:fixme=
 notes\:optimize=
 notes\:todo=
+parse\:home_language_courses=
+parse\:home_lyceums=
+parse\:home_private_schools=
+parse\:home_universities=
 parse\:save_app4all=
+parse\:save_app4all_site=
 rails\:template=Applies the template supplied by LOCATION=(/path/to/template) or URL
 rails\:templates\:copy=
 rails\:update=Update configs and some other initially generated files (or use just update:configs or update:bin)

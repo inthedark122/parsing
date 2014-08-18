@@ -5,7 +5,18 @@ Rails.application.routes.draw do
   get 'apps4all/add_cmp' => 'apps4all#add_cmp'
   get 'apps4all/show' => 'apps4all#show'
   get 'apps4all/apps4all' => 'apps4all#show'
-  #get 'apps4all/add_cmp.xls' => 'apps4all#add_cmp'
+  
+  get 'schools/show_language_courses' => 'schools#show_language_courses'
+  get 'schools/language_courses' => 'schools#show_language_courses'
+  
+  get 'schools/show_universities' => 'schools#show_universities'
+  get 'schools/universities' => 'schools#show_universities'
+  
+  get 'schools/show_private_schools' => 'schools#show_private_schools'
+  get 'schools/private_schools' => 'schools#show_private_schools'
+  
+  get 'schools/show_lyceums' => 'schools#show_lyceums'
+  get 'schools/lyceums' => 'schools#show_lyceums'
   
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

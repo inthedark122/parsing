@@ -1,0 +1,24 @@
+= link_to "Получить Excel", "/schools/private_schools.xls"
+- if @schools.blank?
+  %p Записей не обнаружено
+- else
+  %table{:border=>'1px solid black'}
+    %thead
+      %tr
+        %td id
+        %td Название
+        %td Тип
+        %td Сайт
+        %td Телефон
+        %td Почта
+        %td Обновлена
+    %tbody
+      - @schools.each do |school|
+        %tr
+          %td= school.id
+          %td= school.name
+          %td= get_type(school.type_school)
+          %td= school.site
+          %td= school.phone
+          %td= school.posta
+          %td= school.updated_at
