@@ -58,7 +58,7 @@ class School < ActiveRecord::Base
   
   def private_schools_parse(params)
     main = 'http://www.schoolotzyv.ru'
-    uri = URI("#{main}/licei")
+    uri = URI("#{main}/chastnye-shkoly-moskvy")
     res = Net::HTTP.get_response(uri)
     doc = Nokogiri::HTML::Document.parse(res.body)
     doc.css('li').each do |p|
@@ -74,6 +74,10 @@ class School < ActiveRecord::Base
         name = name.css('span').text
       else
         name = name.text
+      end
+      if name.blank?
+        name = a[0].text
+        puts a[0].text
       end
       values[:name] = name
       page = doc.css('#page')
@@ -92,6 +96,10 @@ class School < ActiveRecord::Base
   end
   
   def save_school(values)
+    if values[:name].blank?
+      puts "Не могу найти имя"
+      return
+    end
     school = School.find_by_name(values[:name])
     if school.blank?
       school = School.new(values)
