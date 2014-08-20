@@ -10,6 +10,7 @@
           %td Сайт
           %td Телефон
           %td Почта
+          %td Директор
       %tbody
         - @schools.each do |school|
           %tr
@@ -18,3 +19,4 @@
             %td= school.site
             %td= school.phone
             %td= school.posta
+            %td= school.director
