@@ -8,8 +8,30 @@ class School < ActiveRecord::Base
   #attr_accessible :name, :type_school, :phome, :site, :posta
   
   def language_courses_parse(params)
-    (params[:start_count] .. params[:end_count]).each do |i|
-      uri = URI("http://apps4all.ru/developers/rating?page=#{page}")
+    (params[:start_count] .. params[:end_count]).each do |page|
+      url = URI.parse("http://yaca.yandex.ua/yca/geo/Russia/Central/Moscow_District/Moscow/cat/Science/Advanced_Training/Languages/#{page}.html")
+      req = Net::HTTP::Get.new(url.to_s)
+      req.add_field('Access-Control-Allow-Origin','*')
+      puts req
+      res = Net::HTTP.start(url.host, url.port) {|http|
+        #http.header('Access-Control-Allow-Origin','*')
+        http.request(req)
+      }
+      #res = Net::HTTP.get(uri)
+      #doc = Nokogiri::HTML::Document.parse(res.body)
+      puts res.body
+      break
+      doc.css('.b-result__item').each do |vuz|
+        values = {:type_school => 1}
+        values[:name] = vuz.css('.b-result__name')[0].text
+        info = vuz.css('.b-result__info')[0]
+        phone = info.text
+        site = info.css('a')[0].text
+        puts phone
+        puts site
+      end
+      break
+      
     end
   end
   
