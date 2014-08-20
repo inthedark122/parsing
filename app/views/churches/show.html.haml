@@ -1,5 +1,5 @@
-= link_to "Получить Excel", "/apps4all/apps4all.xls"
-- if @posts.blank?
+= link_to "Получить Excel", "/churches/churches.xls"
+- if @churches.blank?
   %p Записей не обнаружено
 - else
   %table{:border=>'1px solid black'}
@@ -13,7 +13,7 @@
         %td Обновлена
         %td Тип
     %tbody
-      - @chuches.each do |church|
+      - @churches.each do |church|
         %tr
           %td= church.id
           %td= church.name
@@ -21,4 +21,4 @@
           %td= church.phone
           %td= church.posta
           %td= church.updated_at
-          %td= church.type_chuch
+          %td= get_type_cherch_rus(church.type_church)

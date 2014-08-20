@@ -2,7 +2,7 @@
 
 module ChurchesHelper
   
-  def get_type_rus(type)
+  def get_type_cherch_rus(type)
     case type
     when 1
       return 'Православие'
