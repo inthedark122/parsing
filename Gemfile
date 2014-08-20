@@ -20,7 +20,7 @@ gem 'therubyracer'
 
 group :development do
   #gem 'spring'
-  gem 'better_errors'
+  gem 'better_errors', '~> 1.1.0'
   gem 'binding_of_caller'
   gem 'meta_request'
   gem 'quiet_assets'

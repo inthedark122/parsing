@@ -1,6 +1,7 @@
 #encoding: utf-8
 class School < ActiveRecord::Base
   require 'net/http'
+  require 'open-uri'
   # 1 - Языковые курсы - language_courses_parse
   # 2 - Вузы - universities_parse
   # 3 - Частные школы - private_schools_parse
@@ -9,41 +10,33 @@ class School < ActiveRecord::Base
   
   def language_courses_parse(params)
     (params[:start_count] .. params[:end_count]).each do |page|
-      url = URI.parse("http://yaca.yandex.ua/yca/geo/Russia/Central/Moscow_District/Moscow/cat/Science/Advanced_Training/Languages/#{page}.html")
-      req = Net::HTTP::Get.new(url.to_s)
-      req.add_field('Access-Control-Allow-Origin','*')
-      puts req
-      res = Net::HTTP.start(url.host, url.port) {|http|
-        #http.header('Access-Control-Allow-Origin','*')
-        http.request(req)
-      }
-      #res = Net::HTTP.get(uri)
-      #doc = Nokogiri::HTML::Document.parse(res.body)
-      puts res.body
-      break
+      uri = URI.parse("http://yaca.yandex.ua/yca/geo/Russia/Central/Moscow_District/Moscow/cat/Science/Advanced_Training/Languages/#{page}.html")
+      uri.open # do |f|    end
+      res = uri.read
+      doc = Nokogiri::HTML::Document.parse(res)
       doc.css('.b-result__item').each do |vuz|
         values = {:type_school => 1}
         values[:name] = vuz.css('.b-result__name')[0].text
-        info = vuz.css('.b-result__info')[0]
-        phone = info.text
-        site = info.css('a')[0].text
-        puts phone
-        puts site
+        info = vuz.css('.b-result__info')[1]
+        unless info.blank?
+          values[:phone] = info.children.first.text.strip
+          values[:posta] = info.css('a').first.text.strip
+          
+        end
+        values[:site] = vuz.css('.b-result__url').first.text.strip
+        
+        save_school(values)
       end
-      break
-      
     end
   end
   
   def universities_parse(params)
     main = 'http://vuz.edunetwork.ru'
     (params[:start_count] .. params[:end_count]).each do |i|
-      #http://vuz.edunetwork.ru/ajax.bin
       uri = URI("#{main}/ajax.bin")
       params_uri = {:act=> 'moreVuz', :page=>i, :url=>"#{main}/77/?page=#{i}&level=first"}
       res = Net::HTTP.post_form(uri, params_uri)
       doc = Nokogiri::HTML::Document.parse(res.body)
-      #vuzes = doc.css('#vuzes')
       doc.css('.block').each do |block|
         values = {:type_school => 2, :name => block.css('a')[0].text, :page=>i}
         href = block.css('a')[0][:href]
@@ -102,19 +95,64 @@ class School < ActiveRecord::Base
         puts a[0].text
       end
       values[:name] = name
-      page = doc.css('#page')
+      page = doc.css('.art-PostContent').first
       if page.to_s =~ /Телефоны:\s*<\/span>\s*(?<phone>[\d(),. -]{1,})\n*(<\/br>){0,}/im
         values[:phone] = Regexp.last_match(:phone)
       end
-      if page.to_s =~ /Сайт:.*<a([\w ="':\/.?-]{1,})>(?<site>[\w.-]{1,})<\/a>/im
+      if page.to_s =~ /Сайт: *<\/span> *<a([\wА-яЁё\\ ="':\/.?-]{1,})>(?<site>[\w\/А-яЁё.-]{1,})<\/a>/im
         values[:site] = Regexp.last_match(:site)
       end
-      save_school(values)
+      if page.to_s =~ /Директор:\s*<\/span>\s*(?<director>[\wА-яЁё(),. -]{1,})\n*(<\/br>){0,}/im
+        values[:director] = Regexp.last_match(:director)
+      end
+      if page.to_s =~ /Адрес:\s*<\/span>\s*(?<posta>[\wА-яЁё(),. -]{1,})\n*(<\/br>){0,}/im
+        values[:posta] = Regexp.last_match(:posta)
+      end
+      p values
+      #save_school(values)
     end
   end 
   
   def lyceums_parse(params)
-    
+    main = 'http://www.schoolotzyv.ru'
+    uri = URI("#{main}/licei")
+    res = Net::HTTP.get_response(uri)
+    doc = Nokogiri::HTML::Document.parse(res.body)
+    table = doc.css('#cattable').first
+    doc.xpath('//table[@id="cattable"]/tr').each do |p|
+      values = {:type_school => 3}
+      a = p.css('a')
+      #next if a.blank?
+      uri = URI("#{main}#{a[0]['href']}")
+      res = Net::HTTP.get_response(uri)
+      doc = Nokogiri::HTML::Document.parse(res.body)
+      name = doc.css('h1[itemprop="name"]')
+      unless name.css('span').blank?
+        name = name.css('span').text
+      else
+        name = name.text
+      end
+      if name.blank?
+        name = a[0].text
+        puts a[0].text
+      end
+      values[:name] = name
+      page = doc.css('.art-PostContent').first
+      if page.to_s =~ /Телефоны:\s*<\/span>\s*(?<phone>[\d(),. -]{1,})\n*(<\/br>){0,}/im
+        values[:phone] = Regexp.last_match(:phone)
+      end
+      if page.to_s =~ /Сайт: *<\/span> *<a([\wА-яЁё\\ ="':\/.?-]{1,})>(?<site>[\w\/А-яЁё.-]{1,})<\/a>/im
+        values[:site] = Regexp.last_match(:site)
+      end
+      if page.to_s =~ /Директор:\s*<\/span>\s*(?<director>[\wА-яЁё(),. -]{1,})\n*(<\/br>){0,}/im
+        values[:director] = Regexp.last_match(:director)
+      end
+      if page.to_s =~ /Адрес:\s*<\/span>\s*(?<posta>[\wА-яЁё(),. -]{1,})\n*(<\/br>){0,}/im
+        values[:posta] = Regexp.last_match(:posta)
+      end
+      puts values
+      #save_school(values)
+    end
   end
   
   def save_school(values)
