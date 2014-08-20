@@ -108,8 +108,7 @@ class School < ActiveRecord::Base
       if page.to_s =~ /Адрес:\s*<\/span>\s*(?<posta>[\wА-яЁё(),. -]{1,})\n*(<\/br>){0,}/im
         values[:posta] = Regexp.last_match(:posta)
       end
-      p values
-      #save_school(values)
+      save_school(values)
     end
   end 
   
@@ -150,8 +149,7 @@ class School < ActiveRecord::Base
       if page.to_s =~ /Адрес:\s*<\/span>\s*(?<posta>[\wА-яЁё(),. -]{1,})\n*(<\/br>){0,}/im
         values[:posta] = Regexp.last_match(:posta)
       end
-      puts values
-      #save_school(values)
+      save_school(values)
     end
   end
   
