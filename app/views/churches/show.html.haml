@@ -12,6 +12,9 @@
         %td Почта
         %td Обновлена
         %td Тип
+        %td Тип int
+        %td page
+        %td m_page
     %tbody
       - @churches.each do |church|
         %tr
@@ -22,3 +25,6 @@
           %td= church.posta
           %td= church.updated_at
           %td= get_type_cherch_rus(church.type_church)
+          %td= church.type_church
+          %td= church.page
+          %td= church.mk_type_church
