@@ -105,8 +105,8 @@ class School < ActiveRecord::Base
       if page.to_s =~ /Директор:\s*<\/span>\s*(?<director>[\wА-яЁё(),. -]{1,})\n*(<\/br>){0,}/im
         values[:director] = Regexp.last_match(:director)
       end
-      if page.to_s =~ /Адрес:\s*<\/span>\s*(?<posta>[\wА-яЁё(),. -]{1,})\n*(<\/br>){0,}/im
-        values[:posta] = Regexp.last_match(:posta)
+      if page.to_s =~ /Адрес:\s*<\/span>\s*(?<posta>[\wА-яЁё()\\,.\r\n \u00A0<>"'“”;:-]{1,})</imx
+        values[:posta] = Regexp.last_match(:posta).gsub(/[\n\r]/, '').gsub('<br>', '')
       end
       save_school(values)
     end
@@ -117,9 +117,8 @@ class School < ActiveRecord::Base
     uri = URI("#{main}/licei")
     res = Net::HTTP.get_response(uri)
     doc = Nokogiri::HTML::Document.parse(res.body)
-    table = doc.css('#cattable').first
     doc.xpath('//table[@id="cattable"]/tr').each do |p|
-      values = {:type_school => 3}
+      values = {:type_school => 4}
       a = p.css('a')
       #next if a.blank?
       uri = URI("#{main}#{a[0]['href']}")
@@ -146,8 +145,8 @@ class School < ActiveRecord::Base
       if page.to_s =~ /Директор:\s*<\/span>\s*(?<director>[\wА-яЁё(),. -]{1,})\n*(<\/br>){0,}/im
         values[:director] = Regexp.last_match(:director)
       end
-      if page.to_s =~ /Адрес:\s*<\/span>\s*(?<posta>[\wА-яЁё(),. -]{1,})\n*(<\/br>){0,}/im
-        values[:posta] = Regexp.last_match(:posta)
+      if page.children.to_s =~ /Адрес:\s*<\/span>\s*(?<posta>[\wА-яЁё()\\,.\r\n \u00A0<>"'“”;:-]{1,})</imx
+        values[:posta] = Regexp.last_match(:posta).gsub(/[\n\r]/, '').gsub('<br>', '')
       end
       save_school(values)
     end
