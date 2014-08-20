@@ -70,8 +70,9 @@ class Church < ActiveRecord::Base
           res = uri.read
           doc = Nokogiri::HTML::Document.parse(res)
           values = {:type_church => type, :page => page, :mk_type_church => mk_type_church}
-          next if doc.css('.sobi2Listing').first.css('td').first.text.blank?
+          break if doc.css('.sobi2Listing').first.css('td').first.text.blank?
           doc.css('.sobi2Listing').first.css('td').each do |item|
+            next if item.text.blank?
             values[:name] = item.css('a').first.text.strip
             values[:site] = item.css('a').first[:href]
             
@@ -95,7 +96,7 @@ class Church < ActiveRecord::Base
       return
     end
     date = Time.now.strftime("%d.%m.%Y %H:%M") + "  "
-    church = Church.find_by_name(values[:name])
+    church = Church.where(:name => values[:name], :page=> values[:page], :type_church => values[:type_church]).first
     if church.blank?
       church = Church.new(values)
       if church.save
