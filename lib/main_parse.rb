@@ -25,6 +25,10 @@ class MainParse
         when /log/
           log = true
           result[:log] = true
+        else
+          if arg =~ /(?<k>\w*)=(?<v>\w*)/
+            result[Regexp.last_match(:k).to_sym] = Regexp.last_match(:v)
+          end
         end
       end
       return result

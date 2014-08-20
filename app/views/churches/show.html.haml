@@ -1,0 +1,24 @@
+= link_to "Получить Excel", "/apps4all/apps4all.xls"
+- if @posts.blank?
+  %p Записей не обнаружено
+- else
+  %table{:border=>'1px solid black'}
+    %thead
+      %tr
+        %td id
+        %td Название
+        %td Сайт
+        %td Телефон
+        %td Почта
+        %td Обновлена
+        %td Тип
+    %tbody
+      - @chuches.each do |church|
+        %tr
+          %td= church.id
+          %td= church.name
+          %td= church.site
+          %td= church.phone
+          %td= church.posta
+          %td= church.updated_at
+          %td= church.type_chuch
