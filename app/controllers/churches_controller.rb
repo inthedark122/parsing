@@ -4,7 +4,7 @@ class ChurchesController < ApplicationController
     if params[:type]
       @churches = Church.where(:type_cherch => params[:type])
     else
-      @churches = Church.all.order("type_church ASC").order("page ASC").order("mk_type_church ASC")
+      @churches = Church.all.order("type_church ASC").order("mk_type_church ASC").order("page ASC")
     end
     respond_to do |format|
       format.html { render 'churches/show' }
