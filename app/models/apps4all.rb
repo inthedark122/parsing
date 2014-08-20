@@ -3,7 +3,7 @@ require 'net/http'
 class Apps4all < ActiveRecord::Base
   #attr_accessible :name, :type, :country, :city, :site, :ios, :android, :windows
   
-  def load_site(start_page = 0, end_page = 99999)
+  def load_site(start_page = 0, end_page = 99999, log = false)
     (start_page .. end_page).each do |page|
       uri = URI("http://apps4all.ru/developers/rating?page=#{page}")
       while true
@@ -21,7 +21,7 @@ class Apps4all < ActiveRecord::Base
       trs.shift
       trs.each do |tr|
         cmp = parse_page(tr)
-        puts cmp if @log
+        puts cmp if log
       end
       puts "Закончил #{page} страницу"
     end

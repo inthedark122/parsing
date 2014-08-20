@@ -1,39 +1,34 @@
 #encoding: utf-8
-require 'main_parse'
-namespace :parse do
-  task :save_app4all => :environment do
+class MainParse
+  
+  def get_params
     start_count = 1
     end_count = 9999999
-    name = "campaign.xls"
-    log = false
     unless ARGV.nil?
+      result = {}
       ARGV.each do |arg|
         case arg
         when /start/
           start_count = /\w+=(?<start>[\d]{1,})/.match(arg)[:start].to_i
+          result[:start_count] = start_count
         when /end/
           end_count = /\w+=(?<end>[\d]{1,})/.match(arg)[:end].to_i
+          result[:end_count] = end_count
         when /name/
           reg = /\w+=(?<name>[\wА-яёЁ]{1,})/.match(arg)
           if reg.nil?
             puts "Невозможно разпознать имя файла"
           else
             name = reg[:name] + '.xls'
+            result[:name] = name
           end
         when /log/
           log = true
+          result[:log] = true
         end
       end
+      return result
     end
-    parse = Apps4allController.new
-    parse.add_cmp(start_count, end_count, name, log)
+    return {}
   end
-  
-  task :save_app4all_site => :environment do
-    params = {:start_count => 1, :end_count => 9999999, :name => "campaign.xls", :log => false}
-    params = params.merge(MainParse.new().get_params)
-    parse = Apps4allsSiteController.new
-    parse.add_cmp(params[:start_count], params[:end_count], params[:log])
-  end
-  
 end

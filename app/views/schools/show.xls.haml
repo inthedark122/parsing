@@ -1,0 +1,22 @@
+%html
+  %head
+    %meta{:'http-equiv' => 'Content-Type', :content => 'text/html; charset=utf-8'}
+  %body
+    %table{:border=>'1px solid black'}
+      %thead
+        %tr
+          %td Название
+          %td Тип
+          %td Сайт
+          %td Телефон
+          %td Почта
+          %td Директор
+      %tbody
+        - @schools.each do |school|
+          %tr
+            %td= school.name
+            %td= get_type(school.type_school)
+            %td= school.site
+            %td= school.phone
+            %td= school.posta
+            %td= school.director
