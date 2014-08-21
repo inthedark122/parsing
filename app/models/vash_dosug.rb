@@ -22,7 +22,7 @@ class VashDosug < ActiveRecord::Base
       parse_vashdosug(islam_love[102], 102, params)
       parse_vashdosug(islam_love[103], 103, params)
     else
-      case params[:str]
+      case params[:str].to_i
       when 101
         parse_vashdosug(islam_love[101], 101, params)
       when 102
