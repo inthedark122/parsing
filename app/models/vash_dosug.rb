@@ -17,10 +17,20 @@ class VashDosug < ActiveRecord::Base
       102 => 'http://www.vashdosug.ru/msk/theatre/places/',
       103 => 'http://www.vashdosug.ru/msk/exhibition/places/'
     }
-    parse_vashdosug(islam_love[101], 101, params) unless params[:str].blank? && params[:str] != 101
-    parse_vashdosug(islam_love[102], 102, params) unless params[:str].blank? && params[:str] != 102
-    parse_vashdosug(islam_love[103], 103, params) unless params[:str].blank? && params[:str] != 103
-    
+    if params[:str].blank?
+      parse_vashdosug(islam_love[101], 101, params)
+      parse_vashdosug(islam_love[102], 102, params)
+      parse_vashdosug(islam_love[103], 103, params)
+    else
+      case params[:str]
+      when 101
+        parse_vashdosug(islam_love[101], 101, params)
+      when 102
+        parse_vashdosug(islam_love[102], 102, params)
+      when 103
+        parse_vashdosug(islam_love[103], 103, params)
+      end
+    end
   end
   
   def parse_vashdosug(url, site_id, params)
