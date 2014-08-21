@@ -21,6 +21,11 @@ Rails.application.routes.draw do
   get 'churches/show_all' => 'churches#show_all'
   get 'churches/churches' => 'churches#show_all'
   
+  get 'publishers/show_all' => 'publishers#show'
+  get 'publishers/publishers' => 'publishers#show'
+  
+  get 'vash_dosugs/show_all' => 'vash_dosugs#show'
+  get 'vash_dosugs/vash_dosug' => 'vash_dosugs#show'
   
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

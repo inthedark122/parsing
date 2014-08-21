@@ -1,0 +1,26 @@
+= link_to "Получить Excel", "/publishers/publishers.xls"
+- if @items.blank?
+  %p Записей не обнаружено
+- else
+  %table{:border=>'1px solid black'}
+    %thead
+      %tr
+        %td id
+        %td Название
+        %td Сайт
+        %td Телефон
+        %td Почта
+        %td Обновлена
+        %td site_id
+        %td page
+    %tbody
+      - @items.each do |item|
+        %tr
+          %td= item.id
+          %td= item.name
+          %td= item.site
+          %td= item.phone
+          %td= item.posta
+          %td= item.updated_at
+          %td= item.site_id
+          %td= item.page

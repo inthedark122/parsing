@@ -67,6 +67,7 @@ notes\:custom=Enumerate a custom annotation, specify with ANNOTATION=CUSTOM
 notes\:fixme=
 notes\:optimize=
 notes\:todo=
+parse\:church_parse=
 parse\:home_language_courses=
 parse\:home_lyceums=
 parse\:home_private_schools=
