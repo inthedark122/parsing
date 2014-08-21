@@ -4,7 +4,7 @@ class VashDosugsController < ApplicationController
     if params[:type]
       @items = VashDosug.where(:type_cherch => params[:type])
     else
-      @items = VashDosug.all
+      @items = VashDosug.all.order('site_id ASC').order('page ASC')
     end
     respond_to do |format|
       format.html { render 'show' }
