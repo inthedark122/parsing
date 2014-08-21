@@ -56,7 +56,8 @@ class VashDosug < ActiveRecord::Base
                 break 
               end
             end
-            if !head_desc.last.children.first.blank? && !head_desc.last.children.first.attributes.blank? && !head_desc.last.children.first.attributes['data-url'].value.blank?
+            if !head_desc.last.children.first.blank? && !head_desc.last.children.first.attributes.blank? && 
+               !head_desc.last.children.first.attributes['data-url'].blank? && !head_desc.last.children.first.attributes['data-url'].value.blank?
               is_phone = false
               break
             end
