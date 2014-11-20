@@ -1,0 +1,15 @@
+= link_to "Получить Excel", @link_excel
+
+- if @data.blank?
+  %p Записей не обнаружено
+- else
+  %table{:border=>'1px solid black'}
+    %thead
+      %tr
+        - @data.new().each do |item|
+          %th= item
+    %tbody
+      - @data.each do |item|
+        %tr
+          - item.each do |p|
+            %td= p

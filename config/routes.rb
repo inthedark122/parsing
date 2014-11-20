@@ -26,6 +26,9 @@ Rails.application.routes.draw do
   
   get 'vash_dosugs/show_all' => 'vash_dosugs#show'
   get 'vash_dosugs/vash_dosug' => 'vash_dosugs#show'
+
+  get 'day19112014/show/:id' => 'day19112014#show'
+  get 'day19112014/getXls/:id' => 'day19112014#getXls'
   
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

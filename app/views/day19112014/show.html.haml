@@ -1,0 +1,28 @@
+- types = day19112014_names()
+- type = params[:id]
+=link_to "Получить xls", "/day19112014/getXls/#{types[type.to_i]}.xls"
+- if @data.blank?
+  %p Записей не обнаружено
+- else
+  %table{:border=>'1px solid black'}
+    %thead
+      %tr
+        %td id
+        %td Название
+        %td Адрес
+        %td Сайт
+        %td Телефон
+        %td E-mail
+        %td Принадлежность
+        %td Тип
+    %tbody
+      - @data.each do |item|
+        %tr
+          %td= item.id
+          %td= item.name
+          %td= item.adres
+          %td= item.site
+          %td= item.phone
+          %td= item.email
+          %td= item.segment
+          %td= item.type_number
