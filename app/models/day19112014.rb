@@ -126,7 +126,6 @@ class Day19112014 < ActiveRecord::Base
         value[:email] = Regexp.last_match[:email].strip if txt =~ /EMail:\ (?<email>[\wА-яЁё(),. @-]{1,})/imx
         _save(value)
       end
-      return
     end
   end
 
