@@ -122,7 +122,7 @@ class Day19112014 < ActiveRecord::Base
         txt = trs[1].text #.force_encoding("utf-8")
         value[:phone] = Regexp.last_match[:phone].strip if txt =~ /Телефон:\ (?<phone>[\d() \u00A0]{1,})/imx
         value[:adres] = Regexp.last_match[:adres].strip if txt =~ /Адрес:\ (?<adres>[\wА-яЁё (),.-]{1,})/imx
-        value[:site] =  Regexp.last_match[:site].strip if txt =~ /Домашняя\ страница:\ (?<site>[\w.]{1,})/imx
+        value[:site] =  Regexp.last_match[:site].strip if txt =~ /Домашняя\ страница:\ (?<site>[\w.:\/]{1,})/imx
         value[:email] = Regexp.last_match[:email].strip if txt =~ /EMail:\ (?<email>[\wА-яЁё(),. @-]{1,})/imx
         _save(value)
       end
