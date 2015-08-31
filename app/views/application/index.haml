@@ -2,6 +2,8 @@
 = "  -->  "
 =link_to "Получить xls", "/apps4all/apps4all.xls"
 
+%hr
+
 %ul 
   Школы
   %li
@@ -24,3 +26,26 @@
     = "  -->  "
     =link_to "Получить xls", "/schools/yceums.xls"
 
+%hr
+=link_to "Записи церквей", '/churches/show_all'
+= "  -->  "
+=link_to "Получить xls", "/churches/churches.xls"
+
+%hr
+=link_to "Записи публикаций", '/publishers/show_all'
+= "  -->  "
+=link_to "Получить xls", "/publishers/publishers.xls"
+
+%hr
+=link_to "Записи КИНО,ТЕАТР,МУЗЕИ", '/vash_dosugs/show_all'
+= "  -->  "
+=link_to "Получить xls", "/vash_dosugs/vash_dosug.xls"
+
+%hr
+%b 19_11_2014
+%br
+- day19112014_names().each do |index, item|
+  = link_to "#{item}", "/day19112014/show/#{index}"
+  = " --> "
+  =link_to "Получить xls", "/day19112014/getXls/#{item}.xls"
+  %br

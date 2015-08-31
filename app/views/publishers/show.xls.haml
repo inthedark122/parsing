@@ -1,0 +1,18 @@
+%html
+  %head
+    %meta{:'http-equiv' => 'Content-Type', :content => 'text/html; charset=utf-8'}
+  %body
+    %table{:border=>'1px solid black'}
+      %thead
+        %tr
+          %td Название
+          %td Сайт
+          %td Телефон
+          %td Почта
+      %tbody
+        - @items.each do |item|
+          %tr
+            %td= item.name
+            %td= item.site
+            %td= item.phone
+            %td= item.posta

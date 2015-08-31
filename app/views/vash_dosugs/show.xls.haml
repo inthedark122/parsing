@@ -1,0 +1,18 @@
+%html
+  %head
+    %meta{:'http-equiv' => 'Content-Type', :content => 'text/html; charset=utf-8'}
+  %body
+    %table{:border=>'1px solid black'}
+      %thead
+        %tr
+          %th Название
+          %th Тип компании
+          %th Сайт
+          %th Телефон
+      %tbody
+        - @items.each do |item|
+          %tr
+            %td= item.name
+            %td= get_type_item_rus_by_vash_dosug(item.site_id)
+            %td= item.site
+            %td= item.phone
